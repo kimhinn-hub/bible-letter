@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>천국에서 온 편지</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap');
+
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --ink: #2C2418;
+    --ink-light: #6B5E4A;
+    --ink-muted: #9B8E7A;
+    --teal: #4A8C7A;
+    --teal-light: #E8F2EF;
+    --gold: #C4993A;
+    --gold-light: #FDF6E3;
+    --border: rgba(44,36,24,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nanum Gothic', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* 배경 텍스처 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(44,36,24,0.03) 28px, rgba(44,36,24,0.03) 29px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 120px;
+  }
+
+  /* 헤더 */
+  .header {
+    padding: 28px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .header-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -.02em;
+  }
+
+  .header-date {
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+  }
+
+  /* 오늘의 편지 카드 */
+  .letter-section {
+    padding: 20px;
+    background: var(--cream-dark);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .letter-label {
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: .08em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .letter-label::before,
+  .letter-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  .letter-card {
+    background: #FEFCF7;
+    border: 0.5px solid rgba(44,36,24,0.15);
+    border-radius: 4px;
+    padding: 24px 22px 20px;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(44,36,24,0.06), 0 0 0 0.5px rgba(44,36,24,0.04);
+    animation: letterArrive 0.6s ease-out;
+  }
+
+  @keyframes letterArrive {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 편지 꾸밈 선 */
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--gold) 0, var(--gold) 8px, transparent 8px, transparent 12px);
+    opacity: .5;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .letter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .letter-from {
+    font-size: 10px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .letter-from strong {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-light);
+    font-weight: 700;
+  }
+
+  .stamp {
+    width: 32px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .stamp-cross {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    opacity: .4;
+  }
+
+  .stamp-cross::before,
+  .stamp-cross::after {
+    content: '';
+    position: absolute;
+    background: var(--gold);
+  }
+
+  .stamp-cross::before {
+    width: 2px; height: 100%;
+    left: 50%; transform: translateX(-50%);
+  }
+
+  .stamp-cross::after {
+    width: 100%; height: 2px;
+    top: 50%; transform: translateY(-50%);
+  }
+
+  .stamp-text {
+    font-size: 7px;
+    color: var(--ink-muted);
+    letter-spacing: .05em;
+  }
+
+  .letter-verse {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 2px solid var(--gold);
+  }
+
+  .letter-ref {
+    font-size: 11px;
+    color: var(--ink-muted);
+    text-align: right;
+  }
+
+  .letter-open-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    background: transparent;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 12px;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: background .2s;
+    letter-spacing: .04em;
+  }
+
+  .letter-open-btn:hover { background: var(--cream-dark); }
+
+  /* 탭 */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 14px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--ink-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Nanum Gothic', sans-serif;
+    letter-spacing: .02em;
+  }
+
+  .tab.active {
+    color: var(--ink);
+    font-weight: 700;
+    border-bottom-color: var(--ink);
+  }
+
+  /* 패널 공통 */
+  .panel { padding: 16px 20px; display: none; }
+  .panel.active { display: block; }
+
+  /* 나의 편지함 */
+  .count-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal-light);
+    border-radius: 20px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .count-pill-label {
+    font-size: 11px;
+    color: var(--teal);
+  }
+
+  .count-pill-num {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal);
+    font-family: 'Nanum Myeongjo', serif;
+  }
+
+  .mail-list { display: flex; flex-direction: column; gap: 0; }
+
+  .mail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: opacity .15s;
+  }
+
+  .mail-item:hover { opacity: .7; }
+  .mail-item:last-child { border-bottom: none; }
+
+  .mail-envelope {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .mail-envelope.unread {
+    background: var(--teal-light);
+  }
+
+  .mail-envelope.read {
+    background: var(--cream-dark);
+  }
+
+  .mail-envelope svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .mail-info { flex: 1; min-width: 0; }
+
+  .mail-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mail-preview {
+    font-size: 11px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mail-date {
+    font-size: 10px;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* 기록집 배너 */
+  .archive-banner {
+    margin-top: 20px;
+    border: 0.5px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px;
+    background: var(--gold-light);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .archive-books {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .book-spine {
+    width: 8px;
+    border-radius: 1px 1px 0 0;
+  }
+
+  .archive-info { flex: 1; }
+
+  .archive-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .archive-sub {
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+
+  .archive-day {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* 미래의 나에게 — 잠금 상태 */
+  .future-locked {
+    margin-top: 12px;
+    border: 0.5px dashed rgba(44,36,24,0.2);
+    border-radius: 8px;
+    padding: 16px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: .6;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .future-locked::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 6px,
+      rgba(44,36,24,0.025) 6px,
+      rgba(44,36,24,0.025) 7px
+    );
+    pointer-events: none;
+  }
+
+  .lock-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 0.5px dashed rgba(44,36,24,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .future-locked-info { flex: 1; }
+
+  .future-locked-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .future-locked-sub {
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .future-locked-day {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+
+  /* 미래의 나에게 — 잠금 해제 상태 */
+  .future-unlocked {
+    margin-top: 0;
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    padding: 18px 16px;
+    background: #FFFDF5;
+    cursor: default;
+    display: block;
+    box-shadow: 0 2px 16px rgba(196,153,58,0.10);
+  }
+
+  .future-unlocked-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .unlock-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .future-unlocked-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .future-unlocked-desc {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.9;
+    padding: 14px;
+    background: #FFF8E7;
+    border-radius: 6px;
+    border-left: 2px solid var(--gold);
+    margin-bottom: 14px;
+  }
+
+  /* 편지지 작성 영역 */
+  .letter-textarea-wrap {
+    background: #FEFCF7;
+    border: 0.5px solid rgba(196,153,58,0.3);
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .letter-textarea-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--gold) 0, var(--gold) 6px, transparent 6px, transparent 10px);
+    opacity: .4;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .letter-textarea-to {
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+    font-family: 'Nanum Myeongjo', serif;
+  }
+
+  .letter-textarea-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .letter-line {
+    height: 0.5px;
+    background: rgba(196,153,58,0.2);
+    border-radius: 1px;
+    position: relative;
+  }
+
+  .letter-line-text {
+    position: absolute;
+    top: -9px;
+    left: 0;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 12px;
+    color: var(--ink-muted);
+    background: #FEFCF7;
+  }
+
+  .letter-textarea-hint {
+    font-size: 11px;
+    color: rgba(155,142,122,0.6);
+    font-family: 'Nanum Myeongjo', serif;
+    line-height: 1.8;
+    padding-top: 6px;
+  }
+
+  .future-write-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 20px;
+    background: var(--gold);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: .04em;
+    transition: opacity .2s;
+  }
+
+  .future-write-btn:hover { opacity: .85; }
+
+  /* 토글 버튼 */
+  .demo-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 20px 0;
+    padding: 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    background: var(--cream-dark);
+    font-size: 11px;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: opacity .2s;
+    width: calc(100% - 40px);
+  }
+
+  .demo-toggle:hover { opacity: .7; }
+
+  /* 오늘의 편지함 */
+  .community-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .community-count {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  .community-count strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .community-cards { display: flex; flex-direction: column; gap: 10px; }
+
+  .community-card {
+    background: #FEFCF7;
+    border: 0.5px solid rgba(44,36,24,0.12);
+    border-radius: 6px;
+    padding: 14px;
+    position: relative;
+    animation: fadeUp .4s ease both;
+  }
+
+  .community-card:nth-child(2) { animation-delay: .1s; }
+  .community-card:nth-child(3) { animation-delay: .2s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .community-nick {
+    font-size: 10px;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+    letter-spacing: .04em;
+  }
+
+  .community-text {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .community-amen {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .write-prompt {
+    border: 0.5px dashed rgba(44,36,24,0.2);
+    border-radius: 6px;
+    padding: 14px;
+    color: var(--ink-muted);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+    cursor: pointer;
+    transition: background .2s;
+  }
+
+  .write-prompt:hover { background: var(--cream-dark); }
+
+  /* 하단 바 */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    background: var(--cream);
+    border-top: 0.5px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+  }
+
+  .bottom-together {
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+
+  .bottom-together strong { color: var(--ink); }
+
+  .bottom-write-btn {
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .02em;
+    background: none;
+    border: none;
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="header-eyebrow">yes24 · 매일 성경</div>
+    <div class="header-title">천국에서 온 편지</div>
+    <div style="margin-top:12px;font-size:12px;color:var(--ink-light);line-height:2;font-family:'Nanum Myeongjo',serif;">
+      매일 말씀이 편지가 되어 찾아와요.<br>
+      오늘도 누군가와 같은 구절을 읽고 있어요.<br>
+      혼자 읽지만, 혼자가 아닌 시간.
+    </div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:8px;justify-content:center;">
+      <div id="subscribe-btn" onclick="subscribeAlert()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:0.5px solid var(--gold);border-radius:20px;font-size:12px;color:var(--gold);font-family:'Nanum Gothic',sans-serif;cursor:pointer;transition:all .2s;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C4993A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        오늘 첫 편지를 받아보세요
+      </div>
+    </div>
+  </div>
+
+  <!-- 오늘의 편지 -->
+  <div class="letter-section">
+    <div class="letter-label">오늘의 편지</div>
+    <div class="letter-card">
+      <div class="letter-header">
+        <div class="letter-from">
+          <strong>From. 천국</strong>
+          To. 오늘 이 편지를 받는 당신에게
+        </div>
+        <div class="stamp">
+          <div class="stamp-cross"></div>
+          <div class="stamp-text">GRACE</div>
+        </div>
+      </div>
+      <div class="letter-verse">
+        "내가 너와 함께 하여<br>
+        네가 어디로 가든지<br>
+        너를 지키며"
+      </div>
+      <div class="letter-ref">— 창세기 28:15</div>
+      <button class="letter-open-btn">편지 펼쳐 읽기</button>
+    </div>
+  </div>
+
+  <!-- 탭 -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('mine', this)">나의 편지함</button>
+    <button class="tab" onclick="showTab('community', this)">오늘의 묵상</button>
+  </div>
+
+  <!-- 나의 편지함 -->
+  <div class="panel active" id="panel-mine">
+    <div class="count-pill">
+      <span class="count-pill-label">당신에게 온 편지</span>
+      <span class="count-pill-num">7통</span>
+    </div>
+
+    <div class="mail-list">
+      <div class="mail-item">
+        <div class="mail-envelope unread">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4A8C7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 8l10 6 10-6"/>
+          </svg>
+        </div>
+        <div class="mail-info">
+          <div class="mail-title">창세기 28:15 — 오늘의 편지</div>
+          <div class="mail-preview">내가 너와 함께 하여 네가 어디로...</div>
+        </div>
+        <div class="mail-date">오늘</div>
+      </div>
+
+      <div class="mail-item">
+        <div class="mail-envelope read">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 8l10 6 10-6"/>
+          </svg>
+        </div>
+        <div class="mail-info">
+          <div class="mail-title">시편 23:1 — 어제의 편지</div>
+          <div class="mail-preview">여호와는 나의 목자시니 내게...</div>
+        </div>
+        <div class="mail-date">4.30</div>
+      </div>
+
+      <div class="mail-item">
+        <div class="mail-envelope read">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 8l10 6 10-6"/>
+          </svg>
+        </div>
+        <div class="mail-info">
+          <div class="mail-title">요한복음 3:16 — 편지</div>
+          <div class="mail-preview">하나님이 세상을 이처럼 사랑하사...</div>
+        </div>
+        <div class="mail-date">4.29</div>
+      </div>
+
+      <div class="mail-item">
+        <div class="mail-envelope read">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 8l10 6 10-6"/>
+          </svg>
+        </div>
+        <div class="mail-info">
+          <div class="mail-title">빌립보서 4:7 — 편지</div>
+          <div class="mail-preview">모든 지각에 뛰어난 하나님의...</div>
+        </div>
+        <div class="mail-date">4.28</div>
+      </div>
+    </div>
+
+    <!-- 30일 통합 영역 — 잠금 상태 -->
+    <div id="block-locked">
+      <div style="margin-top:20px;border-top:0.5px solid var(--border);padding-top:16px;">
+        <div style="font-size:10px;color:var(--ink-muted);letter-spacing:.08em;text-align:center;margin-bottom:12px;">30일이 되면 열려요 · D-23</div>
+
+        <!-- 기록집 잠금 -->
+        <div class="future-locked" style="margin-top:0;margin-bottom:8px;">
+          <div class="lock-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div class="future-locked-info">
+            <div class="future-locked-title">나의 묵상 기록집</div>
+            <div class="future-locked-sub">30일간의 말씀과 묵상이 한 권으로 묶여요</div>
+          </div>
+        </div>
+
+        <!-- 미래 편지 잠금 -->
+        <div class="future-locked" style="margin-top:0;">
+          <div class="lock-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div class="future-locked-info">
+            <div class="future-locked-title">미래의 나에게 편지</div>
+            <div class="future-locked-sub">1년 후의 나에게 편지를 쓸 수 있어요</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 30일 통합 영역 — 잠금 해제 상태 -->
+    <div id="block-unlocked" style="display:none;margin-top:20px;border-top:0.5px solid var(--gold);padding-top:16px;">
+
+      <!-- 단계 표시 -->
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink)">30일을 채웠어요</div>
+      </div>
+
+      <!-- STEP 1: 기록집 -->
+      <div style="margin-bottom:10px;">
+        <div style="font-size:10px;color:var(--ink-muted);letter-spacing:.06em;margin-bottom:8px;">STEP 1 · 지난 30일 돌아보기</div>
+        <div style="background:#FEFCF7;border:0.5px solid rgba(44,36,24,0.12);border-radius:8px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="display:flex;gap:2px;align-items:flex-end;">
+              <div style="width:6px;height:22px;background:var(--gold);opacity:.4;border-radius:1px;"></div>
+              <div style="width:6px;height:28px;background:var(--gold);opacity:.7;border-radius:1px;"></div>
+              <div style="width:6px;height:32px;background:var(--gold);border-radius:1px;"></div>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--ink);">나의 묵상 기록집</div>
+              <div style="font-size:10px;color:var(--ink-muted);margin-top:2px;">30편의 묵상이 담겼어요</div>
+            </div>
+          </div>
+          <!-- 기록 미리보기 3개 -->
+          <div style="border-top:0.5px solid var(--border);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:11px;color:var(--ink-muted);">
+              <span style="color:var(--ink-light);font-weight:700;">4.1</span>&nbsp;
+              <span style="font-family:'Nanum Myeongjo',serif;color:var(--ink);">"여호와는 나의 목자시니"</span>
+              <div style="font-size:11px;color:var(--ink-muted);margin-top:3px;padding-left:30px;">조용한 아침에 읽었어요. 오늘 하루 기댈 수 있을 것 같아서.</div>
+            </div>
+            <div style="font-size:11px;color:var(--ink-muted);">
+              <span style="color:var(--ink-light);font-weight:700;">4.7</span>&nbsp;
+              <span style="font-family:'Nanum Myeongjo',serif;color:var(--ink);">"하나님이 세상을 이처럼 사랑하사"</span>
+              <div style="font-size:11px;color:var(--ink-muted);margin-top:3px;padding-left:30px;">이 구절을 읽을 때마다 다르게 느껴진다.</div>
+            </div>
+            <div style="font-size:11px;color:var(--ink-light);text-align:right;margin-top:2px;">+ 28편 더 보기</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 화살표 연결 -->
+      <div style="display:flex;justify-content:center;margin:4px 0;">
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="#C4993A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".6">
+          <path d="M8 2v14M3 12l5 6 5-6"/>
+        </svg>
+      </div>
+
+      <!-- STEP 2: 미래 편지 -->
+      <div>
+        <div style="font-size:10px;color:var(--ink-muted);letter-spacing:.06em;margin-bottom:8px;">STEP 2 · 1년 후의 나에게</div>
+        <div class="future-unlocked" id="future-unlocked">
+          <div class="future-unlocked-header">
+            <div class="unlock-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/>
+              </svg>
+            </div>
+            <div class="future-unlocked-title">미래의 나에게 편지</div>
+          </div>
+          <div class="future-unlocked-desc">
+            30일의 말씀을 읽은 지금의 마음을 담아,<br>
+            1년 후의 당신에게 편지를 써보세요.
+          </div>
+          <!-- 편지지 작성 미리보기 -->
+          <div class="letter-textarea-wrap">
+            <div class="letter-textarea-to">To. 2026년의 나에게</div>
+            <div class="letter-textarea-lines">
+              <div class="letter-line">
+                <span class="letter-line-text">안녕, 1년 후의 나.</span>
+              </div>
+              <div class="letter-line"></div>
+              <div class="letter-line"></div>
+            </div>
+            <div class="letter-textarea-hint" style="margin-top:18px;">
+              지금 이 순간, 어떤 말씀이 마음에 남아 있나요?<br>
+              1년 후의 나에게 전하고 싶은 것을 써보세요.
+            </div>
+          </div>
+          <button class="future-write-btn" onclick="alert('편지 작성 화면으로 이동')">편지 쓰기 시작하기 →</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 데모용 토글 — panel-mine 안에서만 보이도록 JS로 제어 -->
+  <div class="demo-toggle" id="demo-toggle" onclick="toggleFuture()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <span id="toggle-label">미리보기: 30일 달성 시 모습 보기</span>
+  </div>
+
+  <!-- 오늘의 편지함 -->
+  <div class="panel" id="panel-community">
+    <div class="community-header">
+      <div class="community-count">오늘 <strong>247명</strong>이 같은 편지를 받았어요</div>
+    </div>
+
+    <div class="community-cards">
+      <div class="community-card">
+        <div class="community-nick">은혜* 님의 묵상</div>
+        <div class="community-text">출근길에 읽었어요. 오늘 하루가 달라보이는 느낌이에요.</div>
+        <div class="community-amen">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4A8C7A" stroke-width="2" stroke-linecap="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          아멘 12
+        </div>
+      </div>
+
+      <div class="community-card">
+        <div class="community-nick">말씀* 님의 묵상</div>
+        <div class="community-text">어디로 가든지. 이 구절이 오늘 하루 내내 남을 것 같아요.</div>
+        <div class="community-amen">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4A8C7A" stroke-width="2" stroke-linecap="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          아멘 8
+        </div>
+      </div>
+
+      <div class="community-card">
+        <div class="community-nick">소망* 님의 묵상</div>
+        <div class="community-text">힘든 시간을 보내고 있는데, 이 구절이 오늘 저한테 온 것 같아서요.</div>
+        <div class="community-amen">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4A8C7A" stroke-width="2" stroke-linecap="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          아멘 21
+        </div>
+      </div>
+
+      <div style="background:#FEFCF7;border:0.5px solid rgba(44,36,24,0.12);border-radius:8px;padding:12px 14px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="width:26px;height:26px;border-radius:50%;background:var(--cream-dark);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9B8E7A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div style="flex:1;background:var(--cream);border:0.5px solid var(--border);border-radius:20px;padding:8px 14px;font-family:'Nanum Myeongjo',serif;font-size:12px;color:var(--ink-muted);cursor:text;" onclick="this.contentEditable='true';this.focus();this.style.color='var(--ink)';" onblur="if(!this.textContent.trim()){this.contentEditable='false';this.style.color='var(--ink-muted)';this.textContent='오늘 말씀을 읽고 느낀 것을 남겨보세요…'}">
+            오늘 말씀을 읽고 느낀 것을 남겨보세요…
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-left:34px;">
+          <span style="font-size:10px;color:var(--ink-muted);">당신의 묵상이 누군가에게 닿을 거예요</span>
+          <button onclick="alert('묵상 등록')" style="background:var(--teal);border:none;border-radius:14px;padding:5px 14px;font-family:'Nanum Gothic',sans-serif;font-size:11px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 하단 바 -->
+<div class="bottom-bar" style="justify-content:center;">
+  <span class="bottom-together">오늘 <strong>247명</strong>이 함께 읽었어요</span>
+</div>
+
+<script>
+function subscribeAlert() {
+  var btn = document.getElementById('subscribe-btn');
+  btn.style.background = 'var(--gold)';
+  btn.style.color = '#fff';
+  btn.style.borderColor = 'var(--gold)';
+  btn.style.cursor = 'default';
+  btn.onclick = null;
+  btn.innerHTML = `
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6L9 17l-5-5"/>
+    </svg>
+    알림 신청 완료 · 내일 편지가 도착해요
+  `;
+}
+
+function showTab(tab, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  el.classList.add('active');
+  var toggle = document.getElementById('demo-toggle');
+  toggle.style.display = tab === 'mine' ? 'flex' : 'none';
+}
+
+var unlocked = false;
+function toggleFuture() {
+  unlocked = !unlocked;
+  var locked = document.getElementById('block-locked');
+  var unlockedEl = document.getElementById('block-unlocked');
+  var label = document.getElementById('toggle-label');
+
+  if (unlocked) {
+    locked.style.display = 'none';
+    unlockedEl.style.display = 'block';
+    unlockedEl.style.animation = 'fadeUp .5s ease both';
+    label.textContent = '미리보기: 잠금 상태로 돌아가기';
+  } else {
+    locked.style.display = 'block';
+    unlockedEl.style.display = 'none';
+    label.textContent = '미리보기: 30일 달성 시 모습 보기';
+  }
+}
+</script>
+</body>
+</html>
